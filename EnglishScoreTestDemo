@@ -1,0 +1,51 @@
+package test;
+
+public class EnglishScoreTestDemo {
+
+    
+    static <T extends Comparable<T>> T findBest(T[] a) {
+        T best = a[0];
+        for (T e : a) {
+            if (e.compareTo(best) > 0) {
+                best = e;
+            }
+        }
+        return best;
+    }
+
+    
+    static <T> String findScore(T[] a, String name) {
+        for (T e : a) {
+            String studentName = e.toString().split(",")[0];
+            if (studentName.equals(name)) {
+                return e.toString();
+            }
+        }
+        return "일치하는 것이 없습니다.";
+    }
+
+    public static void main(String[] args) {
+        EnglishScore[] ea = {
+            new EnglishScore("김삿갓", 77),
+            new EnglishScore("장영실", 88),
+            new EnglishScore("홍길동", 99)
+        };
+
+        MathScore[] ma = {
+            new MathScore("김삿갓", 80),
+            new MathScore("장영실", 98),
+            new MathScore("홍길동", 70)
+        };
+
+        System.out.println("영어 최고 점수 : " + findBest(ea));
+        System.out.println("수학 최고 점수 : " + findBest(ma));
+
+        try {
+            String name = args[0];
+            System.out.println("영어 점수 : " + findScore(ea, name));
+            System.out.println("수학 점수 : " + findScore(ma, name));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("명령행 인자가 없습니다.");
+        }
+    }
+}
